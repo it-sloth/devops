@@ -1,0 +1,33 @@
+services:
+  user.api:
+    container_name: user.api
+    build:
+      context: ../user.api/
+      dockerfile: ../user.api/Dockerfile
+    ports:
+      - ${OUTER_USER_API_PORT}:${INNER_USER_API_PORT}
+    environment:
+      - PORT=${INNER_USER_API_PORT}
+    networks:
+      - fullstack
+
+  user.api.db:
+    container_name: user.api.db
+    image: postgres:16-alpine
+    ports:
+      - ${USER_API_DB_PORT}:5432
+    environment:
+      - POSTGRES_DB=${USER_API_DB_NAME}
+      - POSTGRES_USER=${USER_API_DB_USER}
+      - POSTGRES_PASSWORD=${USER_API_DB_PASSWORD}
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+    networks:
+      - fullstack
+
+volumes:
+  db_volume:
+
+networks:
+  fullstack:
+    driver: bridge
