@@ -1,7 +1,9 @@
 services:
   user.api:
     container_name: user.api
-    build: ../user.api/
+    build:
+      context: ../user.api/
+      dockerfile: ../user.api/Dockerfile
     ports:
       - ${OUTER_USER_API_PORT}:${INNER_USER_API_PORT}
     environment:
