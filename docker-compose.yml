@@ -11,6 +11,8 @@ services:
       - DB_DSN=${USER_API_DB_DSN}
     networks:
       - fullstack
+    depends_on:
+      - user.api.db
 
   user.api.db:
     container_name: user.api.db
