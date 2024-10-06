@@ -8,6 +8,7 @@ services:
       - ${OUTER_USER_API_PORT}:${INNER_USER_API_PORT}
     environment:
       - PORT=${INNER_USER_API_PORT}
+      - DB_DSN=${USER_API_DB_DSN}
     networks:
       - fullstack
 
